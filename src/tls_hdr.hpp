@@ -14,7 +14,7 @@ enum TlsType : uint8_t
     Change_Cipher_Spc = 0x14,
     Alert,
     Handshake,
-    Applicatiob_Data
+    Application_Data
 };
 //----------------------------------
 // Structure

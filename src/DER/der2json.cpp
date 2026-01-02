@@ -44,4 +44,36 @@ namespace json
             }
         }
     }
+
+    static Json::Value read_constructed(std::istream& is, size_t len)
+    {
+        Json::Value jv;
+        uint32_t start_pos = is.tellg();
+        uint8_t c;
+        for (uint32_t i = 0, l; static_cast<uint32_t>(is.tellg()) - start_pos < len && is >> std::noskipws >> c; i++)
+        {
+            ber::DerType der_type = ber::read_type(c);
+            l = ber::read_len(is);
+            jv[i] = der_type.pc == ber::PRIMITIVE ?
+                     type_change(der_type.tag, ber::read_value(is, l)) :
+                     read_constructed(is, l);
+        }
+        return jv;
+    }
+
+    Json::Value der2json(std::istream& is)
+    {
+        Json::Value jv;
+        uint8_t c;
+        for (uint32_t i = 0, l; is >> std::noskipws >> c; i++)
+        {
+            ber::DerType der_type = ber::read_type(c);
+            l = ber::read_len(is);
+            jv[i] = der_type.pc == ber::PRIMITIVE ?
+                     type_change(der_type.tag, ber::read_value(is, l)) :
+                     read_constructed(is, l);
+        }
+        return jv;
+    }
+
 } // namespace json

@@ -45,4 +45,18 @@ namespace ber
             return static_cast<size_t>c;
         }
     }
+
+    std::vector<uint8_t> read_value(std::istream& is, size_t len)
+    {
+        std::vector<uint8_t> v(len);
+        for (size_t i = 0; i < len; i++)
+        {
+            uint8_t c;
+            if (!(is >> std::noskipws >> c))
+                throw "reached eof in read_value";
+
+            v[i] = c;
+        }
+        return v;
+    }
 }

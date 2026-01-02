@@ -17,30 +17,30 @@ namespace ber
      * Common operations include the extraction operator (`>>`), `getline()`, `get()`, and `read()`.
      * It is the base class for all input stream types in C++.
      * */
-    std::vector<uint8_t> read_len(std::istream& is)
+    size_t read_len(std::istream& is)
     {
         uint8_t c;
         if (!(is >> std::noskipws >> c))
             throw "reached eof in read_len";
 
-        std::vector<uint8_t> v;
         if (c & 0x80) // Length represented using multiple byte
         {
-            for (uint32_t i = 0, j = c & 0x7F; i < j; i++) // length is in 2 ~ 127 Byte
+            size_t len = 0;
+            for (uint32_t i = 0, j = static_cast<uint32_t>(c & 0x7F); i < j; i++) // length is in 2 ~ 127 Byte
             {
+                if (j > 8)
+                {
+                    std::cerr << "Length > size_t is not supported. Use big number library.";
+                }
                 is >> c;
-                v.push_back(c); // v's Bytes size will be same with c & 0x7F
+                len = len << 8 | c;
             }
+
+            return len;
         }
         else
         {
-            v.push_back(c);
+            return static_cast<size_t>c;
         }
-        return v;
     }
-}
-
-int main()
-{
-    return 0;
 }

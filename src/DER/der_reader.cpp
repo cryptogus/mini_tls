@@ -4,7 +4,7 @@
 
 namespace ber
 {
-    DerType read_DER_type(uint8_t c)
+    DerType read_type(uint8_t c)
     {
         DerType tmp;
         tmp.value = c;

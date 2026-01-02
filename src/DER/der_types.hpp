@@ -22,13 +22,18 @@ enum DerClass : uint8_t
     PRIVATE
 };
 /**
- * @brief
+ * @brief P/C indicates whether it is a single piece of data or a collection of multiple data items.
+ * If it is a collection, the Contents field contains either another collection or a list of primitive data.
+ * This can be understood similarly to how, in JSON format, a single JSON value may contain an array inside it.
  */
 enum  DerPC : uint8_t
 {
     PRIMITIVE,
     CONSTRUCTED
 };
+/**
+ * @brief A tag indicates whether the value is a number, a string, or a time
+ */
 enum  DerTag : uint8_t
 {
     EOC,

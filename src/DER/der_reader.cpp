@@ -28,10 +28,12 @@ namespace ber
             size_t len = 0;
             for (uint32_t i = 0, j = static_cast<uint32_t>(c & 0x7F); i < j; i++) // length is in 2 ~ 127 Byte
             {
-                if (j > 8)
+                if (j > sizeof(size_t))
                 {
                     std::cerr << "Length > size_t is not supported. Use big number library.";
+                    return 0;
                 }
+
                 is >> c;
                 len = len << 8 | c;
             }

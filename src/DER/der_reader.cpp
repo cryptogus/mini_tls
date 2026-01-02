@@ -4,7 +4,7 @@
 
 namespace ber
 {
-    static DerType read_type(uint8_t c)
+    DerType read_type(uint8_t c)
     {
         DerType tmp;
         tmp.value = c;
@@ -17,7 +17,7 @@ namespace ber
      * Common operations include the extraction operator (`>>`), `getline()`, `get()`, and `read()`.
      * It is the base class for all input stream types in C++.
      * */
-    static size_t read_len(std::istream& is)
+    size_t read_len(std::istream& is)
     {
         uint8_t c;
         if (!(is >> std::noskipws >> c))

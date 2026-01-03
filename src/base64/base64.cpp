@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+#include "base64.hpp"
 
 namespace base64
 {

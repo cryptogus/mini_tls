@@ -57,22 +57,25 @@ namespace base64
     {
         std::vector<unsigned char> v;
         size_t padding = 0;
-        if (!s.empty() && s[s.size() - 1] == '=')
-            padding++;
-        if (s.size() > 1 && s[s.size() - 2] == '=')
-            padding++;
         for (size_t i = 0; i < s.size(); i += 4)
         {
             unsigned char c1 = c2b(s[i]);
             unsigned char c2 = c2b(s[i + 1]);
             unsigned char c3 = (s[i + 2] == '=') ? 0 : c2b(s[i + 2]);
             unsigned char c4 = (s[i + 3] == '=') ? 0 : c2b(s[i + 3]);
-            v.push_back((c1 << 2) | (c2 >> 4)); // First byte
+
+            v.push_back((c1 << 2) | (c2 >> 4));
             if (s[i + 2] != '=')
-                v.push_back(((c2 & 0xF) << 4) | (c3 >> 2)); // Second byte
+                v.push_back(((c2 & 0xF) << 4) | (c3 >> 2));
+            else
+                padding++;
             if (s[i + 3] != '=')
-                v.push_back(((c3 & 0x3) << 6) | c4); // Third byte
+                v.push_back(((c3 & 0x3) << 6) | c4);
+            else
+                padding++;
         }
+        v.resize(v.size() - padding); // Remove padding bytes
+
         return v;
     }
 }

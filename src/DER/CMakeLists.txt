@@ -9,15 +9,6 @@ set(SOURCES
     der_reader.cpp
 )
 
-#option(SHARED "Build shared library" OFF)
-
-#[[if(SHARED)
-    add_library(der2json SHARED ${SOURCES})
-else()
-    add_library(der2json STATIC ${SOURCES})
-endif()
-]]
-
 # BUILD_SHARED_LIBS
 add_library(der2json ${SOURCES})
 

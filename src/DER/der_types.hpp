@@ -38,7 +38,7 @@ enum  DerTag : uint8_t
 {
     EOC,
     BOOLEAN,
-    INTERGER,
+    INTEGER,
     BIT_STRING,
     OCTET_STRING,
     NULL_TYPE,

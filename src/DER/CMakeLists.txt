@@ -7,6 +7,7 @@ find_package(jsoncpp REQUIRED)
 
 set(SOURCES
     der_reader.cpp
+    der2json.cpp
 )
 
 # BUILD_SHARED_LIBS

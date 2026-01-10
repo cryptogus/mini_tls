@@ -8,8 +8,9 @@ Shell: Bash inxi: 3.3.13
 ```
 ## Install ubutu package
 ```bash
-$ sudo apt install libjsoncpp-dev nettle-dev
+$ sudo apt install libjsoncpp-dev libgmp-dev nettle-dev
 ```
 
-- `libjsoncpp-dev` is used for decoding DER format, https://github.com/open-source-parsers/jsoncpp
+- `libjsoncpp-dev` is used for decoding DER format, [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 - `nettle-dev` is used for using crypto functions
+- `libgmp-dev` is used for Big Number in C++ [gmp](https://gmplib.org/)

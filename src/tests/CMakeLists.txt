@@ -21,6 +21,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/../DER/der2json.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../PEM/get_info.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../base64/base64.cpp
+    ../mpz.cpp
 )
 
 set(TEST_SOURCES
@@ -30,10 +31,11 @@ set(TEST_SOURCES
 add_executable(pem2json_test ${TEST_SOURCES} ${SOURCES})
 
 enable_testing()
-target_link_libraries(pem2json_test PRIVATE jsoncpp GTest::gtest_main)
+target_link_libraries(pem2json_test PRIVATE jsoncpp gmp GTest::gtest_main)
 target_include_directories(pem2json_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../DER
                                               ${CMAKE_CURRENT_SOURCE_DIR}/../PEM
-                                              ${CMAKE_CURRENT_SOURCE_DIR}/../base64)
+                                              ${CMAKE_CURRENT_SOURCE_DIR}/../base64
+                                              ../)
 
 include(GoogleTest)
 gtest_discover_tests(pem2json_test)

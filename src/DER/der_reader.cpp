@@ -1,6 +1,8 @@
 #include "der_types.hpp"
+#include "mpz.h"
 #include <iostream>
 #include <vector>
+
 
 namespace ber
 {
@@ -25,7 +27,7 @@ namespace ber
 
         if (c & 0x80) // Length represented using multiple byte
         {
-            size_t len = 0;
+            std::vector<uint8_t> v;
             for (uint32_t i = 0, j = static_cast<uint32_t>(c & 0x7F); i < j; i++) // length is in 2 ~ 127 Byte
             {
                 if (j > sizeof(size_t))
@@ -35,10 +37,10 @@ namespace ber
                 }
 
                 is >> c;
-                len = len << 8 | c;
+                v.push_back(c);
             }
 
-            return len;
+            return bnd2mpz(v.begin(), v.end()).get_si();
         }
         else
         {

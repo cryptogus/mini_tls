@@ -1,5 +1,5 @@
 #include "der_types.hpp"
-#include "mpz.h"
+#include "mpz.hpp"
 #include <iostream>
 #include <vector>
 

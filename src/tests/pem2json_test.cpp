@@ -2,14 +2,22 @@
 #include "get_info.hpp"
 #include "der2json.hpp"
 #include <fstream>
+#include <gtest/gtest.h>
 
-int main()
-{
-    std::ifstream f("sample_cert.pem");
+// Demonstrate some basic assertions.
+TEST(HelloTest, BasicAssertions) {
+  // Expect two strings not to be equal.
+  EXPECT_STRNE("hello", "world");
+  // Expect equality.
+  EXPECT_EQ(7 * 6, 42);
+}
+
+TEST(JsonTest, BasicAssertions) {
+
+  std::ifstream f("sample_cert.pem");
     if (!f.is_open())
     {
         std::cerr << "Failed to open PEM file." << std::endl;
-        return 1;
     }
     std::string cert = PEM::get_certificate_core(f);
     auto v = base64::decode(cert);
@@ -23,7 +31,6 @@ int main()
     if (!json_out.is_open())
     {
         std::cerr << "Failed to open cert.json for writing." << std::endl;
-        return 1;
     }
 
     Json::StreamWriterBuilder writer;
@@ -32,7 +39,4 @@ int main()
     jsonWriter->write(jv, &json_out);
 
     std::cout << "JSON saved to cert.json" << std::endl;
-
-
-    return 0;
 }

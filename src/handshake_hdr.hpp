@@ -31,4 +31,4 @@ struct HandShakeHdr
     uint8_t len[3];
 };
 
-static_assert(sizeof(HandShakeHdr) == 4, "Handshaje Header size is not 4-bytes");
+static_assert(sizeof(HandShakeHdr) == 4, "Handshake Header size is not 4-bytes");

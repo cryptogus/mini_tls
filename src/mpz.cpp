@@ -1,6 +1,7 @@
 #include <cassert>
 #include <random>
-#include "mpz.h"
+#include "mpz.hpp"
+
 using namespace std;
 
 mpz_class nextprime(mpz_class n)
@@ -28,4 +29,16 @@ mpz_class powm(mpz_class base, mpz_class exp, mpz_class mod)
 	assert(mod);
 	mpz_powm(r.get_mpz_t(), base.get_mpz_t(), exp.get_mpz_t(), mod.get_mpz_t());
 	return r;
+}
+
+// parsing hex string like "12:ab:34" to mpz
+mpz_class str2mpz(string s)
+{
+	stringstream ss;
+	char c;
+	string r = "0x";
+	ss << s;
+	while(ss >> setw(2) >> s >> c) // c is ':'
+		r += s;
+	return mpz_class{r};
 }

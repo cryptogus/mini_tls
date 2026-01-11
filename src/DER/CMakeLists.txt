@@ -14,3 +14,4 @@ set(SOURCES
 add_library(der2json ${SOURCES})
 
 target_link_libraries(der2json PRIVATE jsoncpp gmp)
+target_link_directories(der2json PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../)
